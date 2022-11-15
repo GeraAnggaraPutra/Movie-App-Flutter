@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
-  final String _baseUrl = 'http://gera-movie.herokuapp.com/api/v1';
+  final String _baseUrl = 'https://gera-movie.herokuapp.com/api/v1';
 
 
   var token;

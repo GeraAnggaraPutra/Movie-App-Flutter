@@ -39,290 +39,149 @@ class StartState extends State<SignupView> {
 
   @override
   Widget build(BuildContext context) {
-    return initWidget();
-  }
-
-  initWidget() {
     return Scaffold(
-        key: _scaffoldKey,
-        body: SingleChildScrollView(
-            child: Column(
-          children: [
-            Container(
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(32),bottomRight: Radius.circular(32)),
-                color: new Color(0xffF5591F),
-                gradient: LinearGradient(
-                  colors: [(Color.fromRGBO(36, 54, 101, 1.0)), Color.fromARGB(255, 100, 96, 93)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+      key: _scaffoldKey,
+      backgroundColor: Colors.blue,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 28, vertical: 72),
+          child: Column(
+            children: [
+              Card(
+                elevation: 4.0,
+                color: Colors.white10,
+                margin: EdgeInsets.only(top: 86),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
                 ),
-              ),
-              child: Center(
-                  child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50),
-                    child: Image.asset(
-                      "assets/images/movie_logo.png",
-                      height: 100,
-                      width: 100,
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Register",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 18),
+                        TextFormField(
+                            cursorColor: Colors.blue,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              hintText: "Full Name",
+                            ),
+                            validator: (nameValue) {
+                              if (nameValue!.isEmpty) {
+                                return 'Please enter your full name';
+                              }
+                              name = nameValue!;
+                              return null;
+                            }),
+                        SizedBox(height: 12),
+                        TextFormField(
+                            cursorColor: Colors.blue,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              hintText: "Email",
+                            ),
+                            validator: (emailValue) {
+                              if (emailValue!.isEmpty) {
+                                return 'Please enter your email';
+                              }
+                              email = emailValue!;
+                              return null;
+                            }),
+                        SizedBox(height: 12),
+                        TextFormField(
+                            cursorColor: Colors.blue,
+                            keyboardType: TextInputType.text,
+                            obscureText: _secureText,
+                            decoration: InputDecoration(
+                              hintText: "Password",
+                              suffixIcon: IconButton(
+                                onPressed: showHide,
+                                icon: Icon(_secureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                              ),
+                            ),
+                            validator: (passwordValue) {
+                              if (passwordValue!.isEmpty) {
+                                return 'Please enter your password';
+                              }
+                              password = passwordValue!;
+                              return null;
+                            }),
+                        SizedBox(height: 12),
+                        TextButton(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 18, vertical: 10),
+                            child: Text(
+                              _isLoading ? 'Proccessing..' : 'REGISTER',
+                              textDirection: TextDirection.ltr,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                decoration: TextDecoration.none,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _register();
+                            }
+                          },
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(right: 30, top: 20),
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      "Register",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              )),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 20, right: 20, top: 50),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.grey[200],
-                boxShadow: [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              child: TextFormField(
-                keyboardType: TextInputType.name,
-                onFieldSubmitted: (value) {
-                  //Validator
-                },
-                validator: (nameValue) {
-                  if (nameValue!.isEmpty) {
-                    return 'Please enter your full name';
-                  }
-                  name = nameValue;
-                  return null;
-                },
-                cursorColor: Color(0xffF5591F),
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.person,
-                    color: Color(0xffF5591F),
-                  ),
-                  labelText: "Username",
-                  hintText: "Enter Username",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
                 ),
               ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.grey[200],
-                boxShadow: [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
+              SizedBox(
+                height: 24,
               ),
-              child: TextFormField(
-                keyboardType: TextInputType.name,
-                onFieldSubmitted: (value) {
-                  //Validator
-                },
-                validator: (emailValue) {
-                  if (emailValue!.isEmpty ||
-                      !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(emailValue)) {
-                    return 'Masukan Email!';
-                  }
-                  email = emailValue;
-                  return null;
-                },
-                cursorColor: Color(0xffF5591F),
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.email,
-                    color: Color(0xffF5591F),
-                  ),
-                  labelText: "Email",
-                  hintText: "Enter Email",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Color(0xffEEEEEE),
-                boxShadow: [
-                  BoxShadow(
-                      offset: Offset(0, 20),
-                      blurRadius: 100,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              child: TextFormField(
-                keyboardType: TextInputType.name,
-                obscureText: _secureText,
-                onFieldSubmitted: (value) {
-                  //Validator
-                },
-                validator: (passwordValue) {
-                  if (passwordValue!.isEmpty) {
-                    return 'Masukan Password!';
-                  }
-                  password = passwordValue;
-                  return null;
-                },
-                cursorColor: Color(0xffF5591F),
-                decoration: InputDecoration(
-                  focusColor: Color(0xffF5591F),
-                  icon: Icon(
-                    Icons.vpn_key,
-                    color: Color(0xffF5591F),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: showHide,
-                    icon: Icon(
-                        _secureText ? Icons.visibility_off : Icons.visibility),
-                  ),
-                  labelText: "Password",
-                  hintText: "Enter Password",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-              padding: EdgeInsets.only(left: 20, right: 20),
-              height: 54,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.grey[200],
-                boxShadow: [
-                  BoxShadow(
-                      offset: Offset(0, 10),
-                      blurRadius: 50,
-                      color: Color(0xffEEEEEE)),
-                ],
-              ),
-              child: TextFormField(
-                obscureText: _secureText,
-                onFieldSubmitted: (value) {
-                  //Validator
-                },
-                validator: (passwordValue) {
-                  if (passwordValue!.isEmpty) {
-                    return 'Masukan Password!';
-                  }
-                  password = passwordValue;
-                  return null;
-                },
-                cursorColor: Color(0xffF5591F),
-                decoration: InputDecoration(
-                  icon: Icon(
-                    Icons.vpn_key,
-                    color: Color(0xffF5591F),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: showHide,
-                    icon: Icon(
-                        _secureText ? Icons.visibility_off : Icons.visibility),
-                  ),
-                  labelText: "Confirm Password",
-                  hintText: "Enter Password",
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                // if (_formKey.currentState!.validate()) {
-                //   _register();
-                // }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LandingPage(),
-                  ),
-                );
-              },
-              child: Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 20, right: 20, top: 35),
-                padding: EdgeInsets.only(left: 20, right: 20),
-                height: 54,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [(Color.fromRGBO(36, 54, 101, 1.0)), Color.fromARGB(255, 100, 96, 93)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight),
-                  borderRadius: BorderRadius.circular(50),
-                  color: Colors.grey[200],
-                  boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0, 10),
-                        blurRadius: 50,
-                        color: Color(0xffEEEEEE)),
-                  ],
-                ),
-                child: Text(
-                  _isLoading ? 'Proccessing..' : 'REGISTER',
-                  textDirection: TextDirection.ltr,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              child: Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already Have An Account?  "),
-                  GestureDetector(
-                    child: Text(
-                      "Login Now",
-                      style: TextStyle(color: Color(0xffF5591F)),
+                  Text(
+                    "Already have an account? ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
                     ),
+                  ),
+                  InkWell(
                     onTap: () {
-                      // Write Tap Code Here.
-                      Navigator.push(
+                      Navigator.pop(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginView(),
-                          ));
+                          new MaterialPageRoute(
+                              builder: (context) => LoginView()));
                     },
-                  )
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
-              ),
-            )
-          ],
-        )));
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _register() async {
@@ -339,7 +198,7 @@ class StartState extends State<SignupView> {
       localStorage.setString('user', json.encode(body['user']));
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeView()),
+        MaterialPageRoute(builder: (context) => LandingPage()),
       );
     } else {
       if (body['message']['name'] != null) {

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/modules/home/views/SingleMoviePage.dart';
 
-class NewMoviesWidget extends StatelessWidget {
+class NewMoviesWidget extends StatefulWidget {
   const NewMoviesWidget({super.key});
+
+  @override
+  State<NewMoviesWidget> createState() => _NewMoviesWidgetState();
+}
+
+class _NewMoviesWidgetState extends State<NewMoviesWidget> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +43,14 @@ class NewMoviesWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              for (int i = 1; i < 7;i++)
+              for (int i = 1; i <= 7; i++)
                 InkWell(
                   onTap: () {
                     Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SingleMoviePage(),
-                    ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SingleMoviePage(),
+                        ));
                   },
                   child: Container(
                     width: 190,

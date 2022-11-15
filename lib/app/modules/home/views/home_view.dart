@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:movie_app/app/modules/home/views/NewMoviesWidget.dart';
+import 'package:movie_app/app/modules/home/views/TrendingMovies.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -82,6 +83,8 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
             ),
+            SizedBox(height: 15),
+            TrendingMovies(),
             SizedBox(height: 15),
             NewMoviesWidget(),
           ],

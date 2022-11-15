@@ -1,11 +1,10 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movie_app/app/landingPageController.dart';
 import 'package:movie_app/app/modules/login/views/login_view.dart';
 import 'package:movie_app/app/modules/movie/views/movie_view.dart';
-import 'package:movie_app/app/modules/profile/views/profile_view.dart';
+import 'package:movie_app/app/modules/setting/views/setting_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get/get.dart';
 import 'package:movie_app/app/modules/home/views/home_view.dart';
@@ -142,11 +141,11 @@ class LandingPage extends StatelessWidget {
                 icon: Container(
                   margin: EdgeInsets.only(bottom: 7),
                   child: Icon(
-                    Icons.location_history,
+                    Icons.settings,
                     size: 20.0,
                   ),
                 ),
-                label: 'Profile',
+                label: 'Setting',
                 backgroundColor: Color.fromRGBO(36, 54, 101, 1.0),
               ),
             ],
@@ -167,7 +166,7 @@ class LandingPage extends StatelessWidget {
             children: [
               HomeView(),
               MovieView(),
-              ProfileView(),
+              SettingView(),
             ],
           )),
     ));
